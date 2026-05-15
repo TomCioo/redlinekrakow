@@ -1,0 +1,134 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Bebas Neue", "Inter", sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-graphite: var(--graphite);
+  --color-silver: var(--silver);
+  --color-redline: var(--redline);
+
+  --animate-fade-in: fade-in 0.8s ease-out both;
+  --animate-fade-up: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Premium automotive dark palette */
+  --background: oklch(0.10 0.005 270);          /* near-black */
+  --foreground: oklch(0.97 0.005 95);            /* warm white */
+  --card: oklch(0.135 0.006 270);
+  --card-foreground: oklch(0.97 0.005 95);
+  --popover: oklch(0.135 0.006 270);
+  --popover-foreground: oklch(0.97 0.005 95);
+  --primary: oklch(0.82 0.13 80);                /* gold */
+  --primary-foreground: oklch(0.12 0.01 270);
+  --secondary: oklch(0.20 0.006 270);
+  --secondary-foreground: oklch(0.95 0.005 95);
+  --muted: oklch(0.18 0.006 270);
+  --muted-foreground: oklch(0.68 0.01 270);
+  --accent: oklch(0.82 0.13 80);
+  --accent-foreground: oklch(0.12 0.01 270);
+  --destructive: oklch(0.60 0.22 25);
+  --destructive-foreground: oklch(0.98 0.005 95);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.82 0.13 80 / 50%);
+
+  --gold: oklch(0.82 0.13 80);
+  --graphite: oklch(0.22 0.006 270);
+  --silver: oklch(0.78 0.005 270);
+  --redline: oklch(0.58 0.23 27);
+}
+
+.dark {
+  --background: oklch(0.10 0.005 270);
+  --foreground: oklch(0.97 0.005 95);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(1200px 600px at 80% -10%, color-mix(in oklab, var(--gold) 12%, transparent), transparent 60%),
+      radial-gradient(900px 500px at -10% 30%, color-mix(in oklab, var(--redline) 8%, transparent), transparent 60%);
+  }
+  h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: 0.02em; }
+}
+
+@layer utilities {
+  .glass {
+    background: color-mix(in oklab, var(--background) 55%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid color-mix(in oklab, white 8%, transparent);
+  }
+  .text-gradient-gold {
+    background: linear-gradient(135deg, oklch(0.92 0.10 90), oklch(0.78 0.15 75) 50%, oklch(0.55 0.10 70));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hairline {
+    background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 70%, transparent), transparent);
+    height: 1px;
+  }
+  .card-hover {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s, box-shadow 0.5s;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in oklab, var(--gold) 60%, transparent);
+    box-shadow: 0 30px 60px -30px color-mix(in oklab, var(--gold) 35%, transparent);
+  }
+  .img-zoom { overflow: hidden; }
+  .img-zoom img { transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+  .img-zoom:hover img { transform: scale(1.08); }
+}
